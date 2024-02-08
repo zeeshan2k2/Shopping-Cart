@@ -48,6 +48,7 @@ class ViewController: UITableViewController, UISearchBarDelegate {
     
 //  to reset list
     @objc func reset() {
+//      removes everything from items array
         items.removeAll()
 //      reloads the tableview
         tableView.reloadData()
@@ -56,25 +57,30 @@ class ViewController: UITableViewController, UISearchBarDelegate {
     //  to enter items in the list
     @objc func enteringItems() {
         let ac = UIAlertController(title: nil, message: "Type the item.", preferredStyle: .alert)
+//      adding a text field
         ac.addTextField()
         
+//      adding submit button functionality
         let SubmitAction = UIAlertAction(title: "Add",
                                          style: .default) { [unowned self, ac] action in
+//          This is the text entry after enter key
             let AddedItem = ac.textFields![0]
+//          using a function to add items in the uitable view
             self.submit(AddedItem.text!)
         }
         
+//      adding the button
         ac.addAction(SubmitAction)
         present(ac, animated: true)
     }
     
     func submit(_ item: String) {
+//      inserting items in the array
         items.insert(item, at: 0)
         let indexPath = IndexPath(row: 0, section: 0)
+//      insertinf items in the UITable view
         tableView.insertRows(at: [indexPath], with: .automatic)
         return
     }
-    
-    
     
 }
